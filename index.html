@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>G Priyalaxmi</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -38,13 +37,11 @@ header h1 {
 
 nav {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
   padding: 15px;
   position: sticky;
   top: 0;
-  backdrop-filter: blur(12px);
   background: rgba(0,0,0,0.4);
 }
 
@@ -52,14 +49,6 @@ nav a {
   color: white;
   text-decoration: none;
   font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-nav a:hover {
-  background: linear-gradient(90deg, var(--neon1), var(--neon2));
-  color: black;
 }
 
 section {
@@ -69,39 +58,18 @@ section {
   border-radius: 15px;
   background: var(--glass);
   backdrop-filter: blur(15px);
-  box-shadow: 0 0 20px rgba(0,255,255,0.15);
-  transform: translateY(40px);
   opacity: 0;
+  transform: translateY(40px);
   transition: 0.6s;
 }
 
 section.visible {
-  transform: translateY(0);
   opacity: 1;
+  transform: translateY(0);
 }
 
 h2 {
   color: var(--neon1);
-  border-bottom: 2px solid var(--neon2);
-  padding-bottom: 6px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.1);
-  transition: 0.3s;
-}
-
-ul li:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--neon1);
 }
 
 form {
@@ -120,29 +88,22 @@ input, textarea {
 
 button {
   padding: 12px;
-  border: none;
   border-radius: 8px;
+  border: none;
   background: linear-gradient(90deg, var(--neon1), var(--neon2));
-  color: black;
-  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: bold;
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px var(--neon2);
+#status {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 footer {
   text-align: center;
   padding: 20px;
-  background: #020617;
-}
-
-@media(max-width:600px){
-  header h1 { font-size: 2rem; }
-  section { margin: 15px; }
 }
 </style>
 </head>
@@ -151,70 +112,32 @@ footer {
 
 <header>
   <h1>G PRIYALAXMI</h1>
-  <p>B.Sc Data Science | Kristu Jayanti University</p>
+  <p>B.Sc Data Science</p>
 </header>
 
 <nav>
   <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#skills">Skills</a>
-  <a href="#certificates">Certificates</a>
-  <a href="#contact-info">Contact Info</a>
-  <a href="#contact-form">Contact Form</a>
+  <a href="#contact-form">Contact</a>
 </nav>
 
 <section id="home">
   <h2>Home</h2>
-  <p>Welcome to my futuristic portfolio 🚀</p>
-</section>
-
-<section id="about">
-  <h2>About Me</h2>
-  <p>I am G Priyalaxmi, currently pursuing a B.Sc in Data Science (2nd semester).</p>
-  <p>I have a strong passion for web development and programming.</p>
-  <p>I am a quick learner and have good problem-solving skills.</p>
-</section>
-
-<section id="skills">
-  <h2>Skills</h2>
-  <ul>
-    <li>HTML, CSS, JavaScript</li>
-    <li>Node.js</li>
-    <li>GitHub</li>
-    <li>C Programming</li>
-    <li>R Programming (Basics)</li>
-    <li>Statistics (Basics)</li>
-    <li>C++</li>
-  </ul>
-</section>
-
-<section id="certificates">
-  <h2>Certificates</h2>
-  <ul>
-    <li>Digital Engineering – NASSCOM</li>
-    <li>Rising Star – Celonis</li>
-    <li>ICT Academy Certificate</li>
-    <li>Process Mining – Celonis</li>
-    <li>Infosys Springboard Certifications</li>
-    <li>MongoDB – ICT Academy</li>
-  </ul>
-</section>
-
-<section id="contact-info">
-  <h2>How can you contact me</h2>
-  <p>Email: govindarajpriya333@gmail.com</p>
-  <p>College Email: 25dtsa23@kristujayanti.com</p>
-  <p>Instagram: govindarajpriya333</p>
+  <p>Welcome to my portfolio 🚀</p>
 </section>
 
 <section id="contact-form">
   <h2>Contact Me</h2>
+
   <form id="contactForm">
-    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="text" name="name" placeholder="Your Name" required minlength="3">
     <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" rows="5" placeholder="Message" required></textarea>
+    <textarea name="message" rows="5" placeholder="Message" required minlength="5"></textarea>
     <button type="submit">Send Message</button>
   </form>
+
+  <!-- ✅ STATUS MESSAGE -->
+  <p id="status"></p>
+
 </section>
 
 <footer>
@@ -222,9 +145,10 @@ footer {
 </footer>
 
 <script>
+// Animation
 const sections = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
@@ -234,11 +158,55 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach(section => observer.observe(section));
 
-// ✅ SUCCESS MESSAGE
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+
+// ✅ FORM SUBMIT
+const form = document.getElementById("contactForm");
+const status = document.getElementById("status");
+
+form.addEventListener("submit", async function(e) {
   e.preventDefault();
-  alert("✅ Your message has been sent successfully! We will contact you soon.");
-  this.reset();
+
+  const btn = form.querySelector("button");
+
+  // Loading
+  status.innerText = "Sending message...";
+  status.style.color = "yellow";
+  btn.innerText = "Sending...";
+  btn.disabled = true;
+
+  const formData = new FormData(this);
+
+  const data = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    message: formData.get("message")
+  };
+
+  try {
+    const response = await fetch("http://localhost:3000/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      status.innerText = "✅ Message sent successfully!";
+      status.style.color = "lightgreen";
+      form.reset();
+    } else {
+      status.innerText = "❌ Failed to send message";
+      status.style.color = "red";
+    }
+
+  } catch (error) {
+    status.innerText = "❌ Server not reachable";
+    status.style.color = "red";
+  }
+
+  btn.innerText = "Send Message";
+  btn.disabled = false;
 });
 </script>
 
