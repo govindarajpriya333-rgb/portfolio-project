@@ -41,3 +41,9 @@ app.post("/contact", (req, res) => {
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
+if (response.ok) {
+  document.getElementById("status").innerText = "✅ Message sent successfully!";
+  this.reset();
+} else {
+  document.getElementById("status").innerText = "❌ Failed to send message";
+}
