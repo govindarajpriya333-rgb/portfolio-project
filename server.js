@@ -1,39 +1,43 @@
-const status = document.getElementById("status");
+const express = require("express");
+const mysql = require("mysql2");
+const cors = require("cors");
 
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
+const app = express();
 
-  status.innerText = "Sending message...";
-  status.style.color = "yellow";
+app.use(cors());
+app.use(express.json());
 
-  const formData = new FormData(this);
+// MySQL connection
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "Priyalaxmi@2008",
+  database: "portfolio_db"
+});
 
-  const data = {
-    name: formData.get("name"),
-    email: formData.get("email"),
-    message: formData.get("message")
-  };
-
-  try {
-    const response = await fetch("http://localhost:3000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
-
-    if (response.ok) {
-      status.innerText = "✅ Message sent successfully!";
-      status.style.color = "lightgreen";
-      this.reset();
-    } else {
-      status.innerText = "❌ Failed to send message";
-      status.style.color = "red";
-    }
-
-  } catch (error) {
-    status.innerText = "❌ Server not reachable";
-    status.style.color = "red";
+db.connect(err => {
+  if (err) {
+    console.log("❌ DB Error:", err);
+  } else {
+    console.log("✅ MySQL Connected");
   }
+});
+
+// API
+app.post("/contact", (req, res) => {
+  const { name, email, message } = req.body;
+
+  const sql = "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)";
+  
+  db.query(sql, [name, email, message], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error");
+    }
+    res.send("Success");
+  });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
 });
