@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
-
+contst status = document.getElementById("status");
 const app = express();
 
 app.use(cors());
@@ -42,8 +42,7 @@ app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
 if (response.ok) {
-  document.getElementById("status").innerText = "✅ Message sent successfully!";
-  this.reset();
+  status.innerText = "✅ Message sent successfully!";
 } else {
-  document.getElementById("status").innerText = "❌ Failed to send message";
+  status.innerText = "❌ Failed to send message";
 }
